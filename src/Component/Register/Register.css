@@ -1,0 +1,19 @@
+.register-background {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.3)),
+    url(https://i.ibb.co/4pk7Ppc/lino-lakes-C2-Sz-Uyg3-PPQ-unsplash.jpg);
+  min-height: 100vh;
+  width: 100vw;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.img-box {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(https://p.w3layouts.com/demos/aug-2016/19-08-2016/travel_agency_signin_form/web/images/background.jpg);
+  width: auto;
+  height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
