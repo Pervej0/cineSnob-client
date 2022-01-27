@@ -7,6 +7,7 @@ import Header from "./Component/Shared/Header/Header";
 import Footer from "./Component/Shared/Footer/Footer";
 import Register from "./Component/Register/Register";
 import SignIn from "./Component/SignIn/SignIn";
+import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
 
 function App() {
   return (
@@ -14,8 +15,22 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/about"
+          element={
+            <PrivateRoute>
+              <About />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <PrivateRoute>
+              <Contact />
+            </PrivateRoute>
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>

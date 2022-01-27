@@ -1,7 +1,8 @@
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useFirebase from "../../Hook/useFirebase";
 import "./SignIn.css";
 
 const SignIn = () => {
@@ -10,6 +11,10 @@ const SignIn = () => {
     password: "",
   });
   const [userError, setUserError] = useState("");
+  const { manuallySignIn, error } = useFirebase();
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleUserInput = (e) => {
     const { name, value } = e.target;
     setUserInfo((prev) => ({
@@ -27,13 +32,16 @@ const SignIn = () => {
       setUserError("Please enter your password!");
       return;
     }
-    console.log(userInfo);
     setUserError("");
+    manuallySignIn(userInfo.email, userInfo.password, location, navigate);
   };
   return (
     <section className="signin-background flex items-center">
-      <div className="w-2/4 mx-auto p-6 text-white my-8 bg-gray-900">
-        <div>
+      <div className="w-2/4 mx-auto p-6 text-white bg-gray-900">
+        <h3 className="text-center text-lg font-semibold text-red-400">
+          {error}
+        </h3>
+        <form>
           <div className="mb-3">
             <label className="block text-left text-white font-semibold text-xl mb-2">
               Your Email:
@@ -43,6 +51,7 @@ const SignIn = () => {
               onBlur={handleUserInput}
               name="email"
               type="email"
+              autoComplete="email"
               required
               placeholder="Enter email"
             />
@@ -56,6 +65,7 @@ const SignIn = () => {
               onBlur={handleUserInput}
               name="password"
               type="password"
+              autoComplete="password"
               required
               placeholder="Enter password"
             />
@@ -68,7 +78,7 @@ const SignIn = () => {
           >
             Sign in
           </button>
-        </div>
+        </form>
         <div className="text-center">
           <div className="text-white text-center my-4 text-lg">
             ---------------- or ------------------

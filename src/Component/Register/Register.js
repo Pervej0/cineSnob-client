@@ -8,11 +8,13 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import useFirebase from "../../Hook/useFirebase";
 
 const Register = () => {
   const [details, setDetails] = useState({});
   const [errors, setErrors] = useState(null);
   const [passMatched, setPassMatched] = useState("");
+  const { manuallySignUp, user, error } = useFirebase();
 
   const HandleBlur = (e) => {
     const name = e.target.name;
@@ -75,6 +77,7 @@ const Register = () => {
       });
     }
   };
+  console.log(user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,7 +85,8 @@ const Register = () => {
       setPassMatched("Password dosen't matched");
       return;
     }
-    console.log(details);
+    // console.log(details);
+    manuallySignUp(details.email, details.confirmPassword, details.name);
     // window.location.reload();
   };
   return (
@@ -107,6 +111,9 @@ const Register = () => {
           </div>
           <div className="bg-gray-800 py-4 text-white px-5">
             <h2 className="text-3xl text-white font-light mb-4">Sign up</h2>
+            <h2 className="text-lg text-red-400 font-semibold text-center">
+              {error}
+            </h2>
             <form onSubmit={handleSubmit}>
               <div className="mt-3">
                 <label htmlFor="name" className="mb-2 texl-white">
@@ -117,6 +124,7 @@ const Register = () => {
                   <input
                     className="bg-transparent focus:outline-none border-0 w-full mx-3 text-white"
                     type="text"
+                    autoComplete="name"
                     name="name"
                     onBlur={HandleBlur}
                     required
@@ -132,6 +140,7 @@ const Register = () => {
                   <input
                     className="bg-transparent w-full border-0 mx-3 text-white focus:outline-none"
                     type="email"
+                    autoComplete="email"
                     onBlur={HandleBlur}
                     name="email"
                     required
@@ -148,6 +157,7 @@ const Register = () => {
                     className="bg-transparent w-full border-0 mx-3 text-white focus:outline-none"
                     type="password"
                     onChange={HandleChange}
+                    autoComplete="new-password"
                     name="password"
                     required
                   />
@@ -178,6 +188,7 @@ const Register = () => {
                   <input
                     className="bg-transparent w-full border-0 mx-3 text-white focus:outline-none"
                     type="password"
+                    autoComplete="confirm-password"
                     onBlur={HandleBlur}
                     name="confirmPassword"
                     required
@@ -188,7 +199,7 @@ const Register = () => {
               <div className="flex mt-4 justify-between items-center">
                 <h6 className="fw-light">
                   Already a member?{" "}
-                  <Link to="/login" className="fw-normal text-white">
+                  <Link to="/login" className="fw-normal text-yellow-300">
                     Sign In
                   </Link>
                 </h6>
