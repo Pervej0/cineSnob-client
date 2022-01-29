@@ -1,1 +1,1 @@
-export const apiKey = "6a806f7a";
+export const MoviesApiKey = "6a806f7a";

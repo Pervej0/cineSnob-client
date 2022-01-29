@@ -8,6 +8,7 @@ import Footer from "./Component/Shared/Footer/Footer";
 import Register from "./Component/Register/Register";
 import SignIn from "./Component/SignIn/SignIn";
 import PrivateRoute from "./Component/PrivateRoute/PrivateRoute";
+import StreamingDetails from "./Component/Home/Compo/StreamingDetails";
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route
-          path="/about"
+          path="/watchList"
           element={
             <PrivateRoute>
               <About />
@@ -28,6 +30,14 @@ function App() {
           element={
             <PrivateRoute>
               <Contact />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="home/:posterId"
+          element={
+            <PrivateRoute>
+              <StreamingDetails />
             </PrivateRoute>
           }
         />

@@ -23,10 +23,10 @@ const useFirebase = () => {
   const user = useSelector((state) => state.userStatus.user);
   const error = useSelector((state) => state.userStatus.error);
   const isLoading = useSelector((state) => state.userStatus.isLoading);
-  console.log(isLoading);
-  dispatch(handleIsLoading({ isLoading: false }));
+
   //   creating a new user
   const manuallySignUp = (email, password, name, location, navigate) => {
+    dispatch(handleIsLoading({ isLoading: true }));
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
         const userInfo = result.user;
@@ -45,6 +45,7 @@ const useFirebase = () => {
 
   // signOut
   const logOut = () => {
+    dispatch(handleIsLoading({ isLoading: true }));
     signOut(auth)
       .then(() => {
         dispatch(logout({ user: null }));

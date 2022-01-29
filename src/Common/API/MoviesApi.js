@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const instance = axios.create({
+const MoviesApi = axios.create({
   baseURL: "https://www.omdbapi.com/",
 });
 
-export default instance;
+export default MoviesApi;

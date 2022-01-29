@@ -44,25 +44,28 @@ const Header = () => {
               <>
                 <NavLink
                   to="/"
-                  activeClassName="active"
+                  activeclassname="active"
                   className="lg:inline-flex nav-link lg:w-auto w-full mx-3 py-2 rounded text-white items-center justify-center hover:text-gray-300 leading-4	 font-semibold"
                 >
                   <span>Home</span>
                 </NavLink>
                 <NavLink
-                  to="/about"
-                  activeClassName="active"
+                  to="/watchList"
+                  activeclassname="active"
                   className="lg:inline-flex nav-link lg:w-auto w-full mx-3 py-2 rounded text-white items-center justify-center hover:text-gray-300 leading-4	 font-semibold"
                 >
-                  <span>About</span>
+                  <span>Watch List</span>
                 </NavLink>
                 <NavLink
                   to="/contact"
-                  activeClassName="active"
+                  activeclassname="active"
                   className="lg:inline-flex nav-link lg:w-auto w-full mx-3 py-2 rounded text-white items-center justify-center hover:text-gray-300 leading-4	 font-semibold"
                 >
                   <span>Contact Us</span>
                 </NavLink>
+                <span className="text-white py-1 font-semibold ml-2 px-3">
+                  {user.displayName}
+                </span>
                 <button
                   className="border border-2 text-white py-1 font-semibold ml-2 px-3"
                   onClick={logOut}
