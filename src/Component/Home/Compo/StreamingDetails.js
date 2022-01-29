@@ -1,8 +1,11 @@
+import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 // import { set } from "immer/dist/internal";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { MoviesApiKey } from "../../../Common/API/MoviesApiKey";
+import { watchListData } from "../../../Features/watchListSlice";
 import Spinner from "../../Shared/Spinner/Spinner";
 
 const StreamingDetails = () => {
@@ -10,6 +13,7 @@ const StreamingDetails = () => {
   const url =
     "https://images.unsplash.com/photo-1610292062133-75539afdce90?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80";
   const [data, setData] = useState({});
+  const watchList = useSelector(watchListData);
 
   useEffect(() => {
     axios
@@ -17,7 +21,25 @@ const StreamingDetails = () => {
         `https://www.omdbapi.com/?apiKey=${MoviesApiKey}&i=${posterId}&plot=full`
       )
       .then((response) => setData(response.data));
-  }, []);
+  }, [watchList]);
+  console.log(watchList);
+  // storing in watchlist
+  const handleAddToWatchList = () => {
+    const bodyData = {
+      title: data.Title,
+      year: data.Year,
+      poster: data.Poster,
+      released: data.Released,
+      type: data.Type,
+    };
+
+    axios
+      .post("http://localhost:5000/watchlist", bodyData)
+      .then(({ data }) => {
+        if (data.acknowledged) alert("Successfully added to watchlist");
+      })
+      .catch((error) => console.log(error));
+  };
 
   return (
     <section>
@@ -62,7 +84,10 @@ const StreamingDetails = () => {
                 <span className="font-bold">Rating:</span> {data.imdbRating}
               </li>
             </ul>
-            <button className="text-white bg-red-700 px-4 py-1">
+            <button
+              onClick={handleAddToWatchList}
+              className="text-white bg-red-700 px-4 py-1"
+            >
               Add to Watch List
             </button>
           </div>

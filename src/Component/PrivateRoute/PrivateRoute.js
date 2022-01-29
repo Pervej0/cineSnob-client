@@ -5,7 +5,7 @@ import Spinner from "../Shared/Spinner/Spinner";
 
 const PrivateRoute = ({ children }) => {
   const { user, isLoading } = useFirebase();
-  console.log(isLoading);
+
   const location = useLocation();
   return (
     <>
