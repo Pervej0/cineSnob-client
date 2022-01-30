@@ -15,7 +15,7 @@ const WatchList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/watchlist")
+      .get("https://hidden-cove-49545.herokuapp.com/watchlist")
       .then((data) => dispatch(handleWatchListData(data.data)));
   }, [isDeleted]);
 
@@ -24,7 +24,7 @@ const WatchList = () => {
     const isConfirm = window.confirm("Are sure want to delete this?");
     if (isConfirm) {
       axios
-        .delete(`http://localhost:5000/watchlist/${id}`)
+        .delete(`https://hidden-cove-49545.herokuapp.com/watchlist/${id}`)
         .then(({ data }) => {
           if (data.acknowledged) {
             alert("Successfully Deleted");
