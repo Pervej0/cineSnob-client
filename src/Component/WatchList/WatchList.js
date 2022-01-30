@@ -5,6 +5,7 @@ import {
   handleWatchListData,
   watchListData,
 } from "../../Features/watchListSlice";
+import Spinner from "../Shared/Spinner/Spinner";
 
 const WatchList = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const WatchList = () => {
       .then((data) => dispatch(handleWatchListData(data.data)));
   }, [isDeleted]);
 
-  console.log(watchList);
   const handleDelete = (id) => {
     const isConfirm = window.confirm("Are sure want to delete this?");
     if (isConfirm) {
@@ -52,30 +52,34 @@ const WatchList = () => {
             You have <span className="text-green-600">{watchList.length}</span>{" "}
             streaming to watch
           </h1>
-          <div className="grid gap-5 md:grid-cols-3 md:grid-cols-2 grid-cols-1">
-            {watchList?.map((item) => (
-              <div key={item._id}>
-                <div className="flex gap-3 items-center">
-                  <div>
-                    <img width="80" src={item.poster} alt="poster" />
-                  </div>
-                  <div className="ml-5">
-                    <h3 className="text-black text-xl font-semibold mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm">Type: {item.type}</p>
-                    <p className="text-sm mb-2">{item.year}</p>
-                    <button
-                      onClick={() => handleDelete(item._id)}
-                      className="text-white py-1 px-4 bg-red-700"
-                    >
-                      Delete
-                    </button>
+          {!watchListData ? (
+            <Spinner />
+          ) : (
+            <div className="grid gap-5 md:grid-cols-3 md:grid-cols-2 grid-cols-1">
+              {watchList?.map((item) => (
+                <div key={item._id}>
+                  <div className="flex gap-3 items-center">
+                    <div>
+                      <img width="80" src={item.poster} alt="poster" />
+                    </div>
+                    <div className="ml-5">
+                      <h3 className="text-black text-xl font-semibold mb-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm">Type: {item.type}</p>
+                      <p className="text-sm mb-2">{item.year}</p>
+                      <button
+                        onClick={() => handleDelete(item._id)}
+                        className="text-white py-1 px-4 bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>

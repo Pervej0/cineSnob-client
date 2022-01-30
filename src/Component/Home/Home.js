@@ -24,7 +24,7 @@ const Home = () => {
     <>
       <HeroSection />
       <StreamingSection
-        search="comedy"
+        search="action"
         type="movie"
         title="Movies"
         data={movies}
